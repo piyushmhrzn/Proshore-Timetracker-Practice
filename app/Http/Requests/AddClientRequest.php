@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class ClientRequest extends FormRequest
+class AddClientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class ClientRequest extends FormRequest
     {
         return [
             'client_name' => 'required|regex:/^[\pL\s\-]+$/u|max:255',
-            'client_number' => 'required|integer|regex:/^\d{10}$/',  // if a string consists of exactly 10 digits (0-9) 
+            'client_number' => 'required|numeric|digits:10|regex:/^\d{10}$/',  // if a string consists of exactly 10 digits (0-9) 
             'client_email' => 'required|email|max:255|unique:clients',
             'status' => 'required|boolean',
         ];
@@ -36,7 +36,8 @@ class ClientRequest extends FormRequest
     public function messages()
     {
         return [
-            'client_number.integer' => 'Client number must be a number',
+            'client_number.numeric' => 'The client number must only contain numbers',
+            'client_number.digits' => 'The client number must be a 10 digit mobile number',
         ];
     }
 

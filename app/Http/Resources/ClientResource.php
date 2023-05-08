@@ -20,6 +20,7 @@ class ClientResource extends JsonResource
             'client_email'=>$this->client_email,
             'client_number'=>$this->client_number,
             'status'=>$this->status,
+            'project' => $this->projects()->select('project_name')->get()
         ];
 
     }

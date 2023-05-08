@@ -78,8 +78,11 @@ Route::middleware(['auth:sanctum', 'user.status'])->group(function (){
             
         });
         Route::controller(ClientController::class)->prefix('client')->group(function () {
-            Route::post('/', 'addClient');
             Route::get('/', 'viewAllClients');
+            Route::post('/', 'addClient');
+            Route::patch('{id}', 'updateClient');
+            Route::delete('{id}', 'deleteClient');
+            Route::patch('client-status/{id}', 'updateClientStatus');
         });
         Route::middleware(['project.status'])->group(function () {
                 Route::controller(ProjectController::class)->prefix('project')->group(function (){
